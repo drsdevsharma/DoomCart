@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Order Summary{% endblock title %}
+{% block main-content %}
+    <div class="container my-5">
+        <div class="row mt-5">
+            <div class="col-sm-6">
+                <div class="card mb-2">
+                    <div class="card-body">
+                
+                        <h4>Order Summary</h4>
+                        {% for cart in Cart %}
+                        <div class="card mb-2">
+                            <div class="card-body">
+                        
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div>
+                                            <h5>{{cart.product.productName}}</h5>
+                                            <div class="my-3">
+                                                <label for="quantity">Quantity:</label>											
+                                                <span id="quantity">{{cart.quantity}}</span>
+                                            </div> 
+                                            <p class="mb-0"><span><strong>Rs. {{cart.TotalCost}}</strong></span></p>
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div>
+                        </div>                     
+                        {% endfor %}
+						<ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+								Amount<span id = "amount">Rs. {{amount}}</span>
+							</li>
+		
+                            {% if shippingCost %}
+                            
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0border-0">
+                                    Shipping<span id = "shippingCost">Rs. {{shippingCost}}</span>
+                                </li>
+                            {% else %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0 border-0">
+                                    Shipping Charges <span class="text-decoration-line-through" id = "shippingCost">Rs. 70.0</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-end px-0 border-0">Free</li>
+                            {% endif %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+								<div>
+									<strong>Total</strong> <small>(including Gst)</small>
+								</div>
+								<span ><strong id="totalAmount">Rs. {{totalAmount}}</strong></span>
+							</li>
+      					</ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-4 offset-sm-1">
+                <h4>Select Shipping Address</h4>
+                <hr>
+                <form action="{% url 'payment' %}" method="post">
+                    {% csrf_token %}
+                    {% for customer in Customer %}
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>{{customer.name}}</h5>
+                                <p>{{customer.phoneNumber}}</p>
+                                <p>{{customer.loaclity}} {{customer.city}} {{customer.state}}</p>
+                                <p>{{customer.zipCode}}</p>
+                            </div>
+                        </div>
+                        <div class="form-check mt-2 mb-5">
+                            <input class="form-check-input" type="radio" name = "id" value="{{customer.id}}" id = "address{{forloop.counter}}">
+                            <label class="form-check-label fw-bold" for="address{{forloop.counter}}">
+                                Address: {{forloop.counter}} </label>
+                        </div>
+                    {% endfor %}
+                    
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock main-content %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+{% block main-content %}
+    <div class="container my-4">
+        <div class="row">
+            <h3>Welcome {{request.user|capfirst}}</h3>
+            <div class="col-sm-2 border-end">
+                <ul class="list-unstyled">
+                    <li class="d-grid"><a href="{% url 'profile' %}" class="btn btn-primary">Profile</a></li>
+                    <li class="d-grid"><a href = "{% url 'add_profile' %}" class="btn ">Add Profile</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-8 offset-sm-1">
+                <div class="row">
+                    {% for customer in Customer %}
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3>Name: {{customer.name|capfirst}}</h3>
+                                    <p>Loaclity : {{customer.loaclity|capfirst}}</p>
+                                    <p>City : {{customer.city|capfirst}}</p>
+                                    <p>State : {{customer.state|capfirst}}</p>
+                                    <p>Phone Number : {{customer.phoneNumber|capfirst}}</p>
+                                    <p>Pin Code : {{customer.zipCode|capfirst}}</p>
+
+                                </div>
+                            </div>
+                            <br> 
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock main-content %}
