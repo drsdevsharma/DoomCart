@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-l&h^ro@_yanee+_lze4#gss-^d-8bn&k2cw!s!c)85($q6hj4d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["doomcart.herokuapp.com","127.0.0.1"]
 
