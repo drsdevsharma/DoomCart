@@ -28,6 +28,7 @@ $('.plus-cart').click(function(){
     var id = $(this).attr("pid").toString();
     var element = this.parentNode.children[2]
     var icon = this.parentNode.children[1]
+    var productDiscountPrice = this.parentNode.parentNode.children[3].children[1]
 
     $.ajax({
         type:'GET',
@@ -40,6 +41,7 @@ $('.plus-cart').click(function(){
             element.innerText = data.quantity
             document.getElementById("amount").innerText = "Rs. " + data.amount + ".0"
             document.getElementById("totalAmount").innerText = "Rs. " + data.totalAmount + ".0"
+            productDiscountPrice.innerHTML = '<span><strong>Rs. ' + data.productAmount + '.0' +'</strong></span>'
 
         }
     })
@@ -51,6 +53,7 @@ $('.minus-cart').click(function(){
     var id = $(this).attr("pid").toString();
     var element = this.parentNode.children[2]
     var icon = this.parentNode.children[1]
+    var productDiscountPrice = this.parentNode.parentNode.children[3].children[1]
 
     $.ajax({
         type:'GET',
@@ -73,6 +76,8 @@ $('.minus-cart').click(function(){
             }
             document.getElementById("totalAmount").innerText = "Rs. " + data.totalAmount + ".0"
             document.getElementById("lblCartCount").innerText = data.cart_value
+            productDiscountPrice.innerHTML = '<span><strong>Rs. ' + data.productAmount + '.0' +'</strong></span>'
+
         }
     })
 }) 
