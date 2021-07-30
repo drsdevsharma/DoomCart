@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 import os
 import django_heroku
 import dj_database_url
@@ -54,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'Products',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -156,6 +160,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
 
+
+# adding config
+cloudinary.config( 
+    cloud_name="dpwp0ibfn",
+  api_key = "442915584298173", 
+  api_secret = "58js8vutlLC4nHmr6m-AEKKIno8" 
+)
 
 
 

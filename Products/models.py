@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from user.models import Customer
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -20,7 +21,7 @@ class Product(models.Model):
     discription = models.TextField()
     brand = models.CharField(max_length=20)
     category = models.CharField(max_length=20 , choices=CATEGORY_CHOICES)
-    productImage = models.ImageField(upload_to='product')
+    productImage = CloudinaryField('productImage')
     sellingPrice = models.FloatField()
     discountPrice = models.FloatField()
 
