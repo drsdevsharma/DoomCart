@@ -12,7 +12,7 @@ def Message(user, token):
 
     If you haven't inisitate this request please contact us 
 
-    http://127.0.0.1:8000/
+    https://doomcart.herokuapp.com/
 
     Sincerely,
 
