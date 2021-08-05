@@ -8,7 +8,7 @@ def Message(user, token):
     click the link below:
 
 
-    http://127.0.0.1:8000/verify/{token}/
+    https://doomcart.herokuapp.com/verify/{token}/
 
     If you haven't inisitate this request please contact us 
 
