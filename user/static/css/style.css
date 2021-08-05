@@ -40,9 +40,24 @@
     margin-left: -10px; 
 }
 
+.dropdown-menu{
+  background-color:indigo;
+}
+/* 
+.dropdown-menu:hover{
+  background-color:indigo;
+} */
 
+.dropdown-item{
+  color:#fff;
+}
 
-  .slide{
+.dropdown-item:hover{
+  background-color:indigo;
+  color:#fff;
+}
+
+.slide{
     font-size:18px ;
 }
 

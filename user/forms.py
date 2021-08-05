@@ -17,6 +17,17 @@ class RegisterationForm(UserCreationForm):
         label = 'Email' ,
         required = True ,
         widget = forms.EmailInput(attrs={'class':'form-control'}))   
+
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        email = cleaned_data.get('email')
+        username = cleaned_data.get('username')
+        if email and User.objects.filter(email=email).first():
+            self.add_error('email', 'A user already taken this email')
+        if username and User.objects.filter(username=username).first():
+            self.add_error('username', 'A user already taken this username')
+        return cleaned_data
     class Meta:
         model = User
         fields = ['username', 'email', 'password1','password2']

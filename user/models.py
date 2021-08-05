@@ -56,3 +56,13 @@ class Customer(models.Model):
     phoneNumber = models.BigIntegerField()
     def __str__(self):
         return self.name
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    auth_token = models.CharField(max_length=200)
+    is_verified = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return self.user.username

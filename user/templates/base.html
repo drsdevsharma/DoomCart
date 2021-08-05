@@ -97,7 +97,7 @@
         
         {% if messages %}
             {% for message in messages %}
-            <div class="content">
+            <div class="content text-center">
                 <p {% if message.tags %} class="alert alert-{{ message.tags}} mt-3 p-2" {% endif %}>{{message}}</p>
             </div>
             {% endfor %}

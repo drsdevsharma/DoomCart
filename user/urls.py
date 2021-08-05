@@ -13,6 +13,8 @@ urlpatterns = [
     path('forgot_password/done/',auth_views.PasswordResetDoneView.as_view(template_name = 'forgot_password_done.html'), name = 'password_reset_done'),
     path('forgot_password_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name = 'forgot_password_confirm.html',form_class = NewPasswordConfirmForm,success_url='/accounts/login/'),name='password_reset_confirm'),
     path('profile/', views.ProfileView.as_view(), name = 'profile'),
-    path('add_profile/',views.AddProfileView.as_view(), name = 'add_profile')
+    path('add_profile/',views.AddProfileView.as_view(), name = 'add_profile'),
+    path('verify/<token>/',views.TokenView.as_view(), name = 'token'),
+    path('generate/',views.Generate ,name = 'generate'),
 
 ]

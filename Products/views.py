@@ -72,11 +72,11 @@ class ProductCategoryView(View):
         cart_value = []
         products = Product.objects.filter(category=category)
         for product in products:
-            if not(product.brand in self.brands): # * Adding barnds to the list
-               self.brands.append(product.brand)
+            if product.brand not in self.brands: # * Adding barnds to the list
+                self.brands.append(product.brand)
         if request.user.is_authenticated:
             cart_value = list(Cart.objects.filter(customer = request.user)) 
-        
+
         return render(request, 'products.html', {'products': products,'brands': self.brands , 'category':category,'cart_value': len(cart_value)})
 
 
@@ -126,16 +126,16 @@ class AddToCartView(View):
 
 # * Display the items in the cart
 def ShowCart(request):
-    if request.user.is_authenticated:
-        cart_value = list(Cart.objects.filter(customer = request.user))
-        user = request.user
-        cart = Cart.objects.filter(customer=user)
-        amount , totalAmount , shippingCost ,cart_value = total_cost(cart,request)
-        for products in cart:
-            products.product.discountPrice = products.product.discountPrice * products.quantity
-        return render(request, 'add_to_cart.html' , {'Cart': cart,'totalAmount': totalAmount,'shippingCost': shippingCost,'amount': amount,'cart_value': len(cart_value)})
-    else:
+    if not request.user.is_authenticated:
         return redirect('/accounts/login/')
+
+    cart_value = list(Cart.objects.filter(customer = request.user))
+    user = request.user
+    cart = Cart.objects.filter(customer=user)
+    amount , totalAmount , shippingCost ,cart_value = total_cost(cart,request)
+    for products in cart:
+        products.product.discountPrice = products.product.discountPrice * products.quantity
+    return render(request, 'add_to_cart.html' , {'Cart': cart,'totalAmount': totalAmount,'shippingCost': shippingCost,'amount': amount,'cart_value': len(cart_value)})
 
 
 # * Increase the quantity of product
@@ -205,18 +205,16 @@ class RemoveCartView(View):
 # * Display CheckOut
 class CheckOutView(View):
     def get(self, request):
-        if request.user.is_authenticated:
-            
-            customer = Customer.objects.filter(user= request.user)
-            if not customer:
-                return redirect('add_profile')
-            cart = Cart.objects.filter(customer= request.user)
-            amount , totalAmount , shippingCost ,cart_value = total_cost(cart,request)   
-             
-            return render(request,'checkout.html',{'Customer': customer,'Cart':cart,'shippingCost': shippingCost, 'totalAmount': totalAmount,'amount':amount,'cart_value': len(cart_value)}) 
-
-        else:
+        if not request.user.is_authenticated:
             return redirect('/accounts/login/')
+
+        customer = Customer.objects.filter(user= request.user)
+        if not customer:
+            return redirect('add_profile')
+        cart = Cart.objects.filter(customer= request.user)
+        amount , totalAmount , shippingCost ,cart_value = total_cost(cart,request)   
+
+        return render(request,'checkout.html',{'Customer': customer,'Cart':cart,'shippingCost': shippingCost, 'totalAmount': totalAmount,'amount':amount,'cart_value': len(cart_value)})
 
 # * After payment add products to orders and remove products from cart
 class PaymentView(View):

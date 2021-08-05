@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Verify Email Address{% endblock title %}
+{% block main-content %}
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-sm-6 offset-sm-3">
+                <h4 class = "alert-heading">Well Done !!</h4> 
+                <p>An Email Has Been Sent to Your Email Address To Verify Your Email With All The Instructions . 
+                    <br>Check Your Email <br>
+                    If You Have Haven't Received Your Email <a href = "{% url 'generate' %}" class="btn btn-danger ">Click Here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock main-content %}
